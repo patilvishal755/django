@@ -1670,6 +1670,18 @@ class FormsTestCase(SimpleTestCase):
         self.assertEqual(p.cleaned_data['first_name'], 'John')
         self.assertEqual(p.cleaned_data['last_name'], 'Lennon')
         self.assertEqual(p.cleaned_data['birthday'], datetime.date(1940, 10, 9))
+        
+    def test_class_prefic(self):
+        class Person(Form):
+            first_name=CharField()
+            prefix='foo'
+            
+        p=Person()
+        self.assertEqual(p.prefix,'foo')
+
+        p=Person(prefix='bar')
+        self.assertEqual(p.prefix,'bar')
+        
 
     def test_forms_with_null_boolean(self):
         # NullBooleanField is a bit of a special case because its presentation (widget)
